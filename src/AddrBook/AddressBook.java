@@ -14,6 +14,7 @@ public class AddressBook {
     HashMap<String, List<Contact>> addressBookMap = new HashMap<String, List<Contact>>();
 
 
+
     public void addContact(Contact contactObj) {
         Contact contact;
         boolean isPresent = addressList.stream().anyMatch(obj -> obj.equals(contactObj));
@@ -49,6 +50,7 @@ public class AddressBook {
         return contactFound;
     }
 
+
     public boolean removeDetails(String firstName, String lastName) {
         Contact removeObj;
         boolean contactFound = false;
@@ -63,11 +65,13 @@ public class AddressBook {
         return contactFound;
     }
 
+
     public void addAddressList(String listName) {
         List<Contact> newAddressList = new LinkedList<Contact>();
         addressBookMap.put(listName, newAddressList);
         System.out.println("Address Book added");
     }
+
 
 
     private void searchPersonAcrossCityState(String searchPerson,int searchChoice, String cityOrState) {
@@ -81,12 +85,23 @@ public class AddressBook {
     }
 
 
+    private void viewPersonsByCityState(String cityOrState, int searchChoice) {
+        for (Map.Entry<String, List<Contact>> entry : addressBookMap.entrySet()) {
+            List<Contact> list = entry.getValue();
+            if (searchChoice == 1)
+                list.stream().filter(obj -> obj.getCity().equals(cityOrState)).forEach(System.out::println);
+            else if(searchChoice == 2)
+                list.stream().filter(obj -> obj.getState().equals(cityOrState)).forEach(System.out::println);
+        }
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         AddressBook addressObj = new AddressBook();
         int choice = 0;
-       
-        while (choice != 7) {
+
+        while (choice != 8) {
             if (addressObj.addressBookMap.isEmpty()) {
                 System.out.println("Please add an address book :");
                 System.out.println("Enter the name of address book  to add:");
@@ -175,6 +190,14 @@ public class AddressBook {
                     addressObj.searchPersonAcrossCityState(searchPerson,searchChoice, cityOrState);
                 }
                 case 7: {
+                    System.out.println("Enter the name of city or state");
+                    String cityOrState = sc.nextLine();
+                    System.out.println("Enter 1 if you entered name of a city \nEnter 2 if you entered name of a state");
+                    int searchChoice = Integer.parseInt(sc.nextLine());
+                    addressObj.viewPersonsByCityState(cityOrState,searchChoice);
+                    break;
+                }
+                case 8: {
                     System.out.println("Thank you for using the application");
                 }
             }
