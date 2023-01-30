@@ -1,46 +1,25 @@
 package AddrBook;
 
-import java.util.Scanner;
-
 public class Contact {
-    String firstName;
-    String lastName;
-    String address;
-    String city;
-    String state;
-    long zipCode;
-    String phoneNo;
-    String email;
-    Scanner sc = new Scanner(System.in);
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
+    private String phoneNo;
+    private String email;
 
-    public Contact(String firstName, String lastName, String address, String city, String state, long zipCode,
-                   String phoneNo, String email) {
-        this.firstName = firstName; // Constructor
+    public Contact(String firstName, String lastName, String address, String city, String state, String zip,String phoneNo, String email) {
+        super();
+        this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.state = state;
-        this.zipCode = zipCode;
+        this.zip = zip;
         this.phoneNo = phoneNo;
         this.email = email;
-    }
-    @Override
-    public String toString() {
-        return "Contact: " +
-                " \nFirstName = " + firstName +
-                " \nLastName = " + lastName +
-                " \nAddress = " + address +
-                " \nCity = " + city +
-                " \nState = " + state +
-                " \nZipCode = " + zipCode +
-                " \nPhoneNo = " + phoneNo +
-                " \nEmail = " + email ;
-    }
-
-    public void print() {
-        System.out.println("First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address
-                + "\nCity:" + city + "\nState: " + state + "\nZip: " + zipCode + "\nContact number:" + phoneNo
-                + "\nEmail ID:" + email + "\n");
     }
 
     public String getFirstName() {
@@ -59,26 +38,65 @@ public class Contact {
         this.lastName = lastName;
     }
 
-
-    public void editExistingContact(){
-        System.out.println("Enter firstname");
-        firstName = sc.next();
-        System.out.println("Enter lastname");
-        lastName = sc.next();
-        System.out.println("Enter address");
-        address =  sc.next();
-        System.out.println("Enter city");
-        city = sc.next();
-        System.out.println("Enter state");
-        state = sc.next();
-        System.out.println("Enter zip code");
-        zipCode = sc.nextInt();
-        System.out.println("Enter your phone number");
-        phoneNo = sc.next();
-        System.out.println("Enter email");
-        email = sc.next();
+    public String getAddress() {
+        return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " : " + address + " : " + city + " : " + state + " : " + zip + " : "+ phoneNo + " : " + email + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Contact contact = (Contact) o;
+        if ((this.firstName).equals(contact.firstName) && (this.lastName.equals(contact.lastName)))
+            return true;
+        else
+            return false;
+    }
 
 }
