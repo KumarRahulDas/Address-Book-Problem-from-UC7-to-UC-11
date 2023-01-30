@@ -1,4 +1,3 @@
-
 package AddrBook;
 
 public class Contact {
@@ -10,7 +9,6 @@ public class Contact {
     private String zip;
     private String phoneNo;
     private String email;
-   
 
     public Contact(String firstName, String lastName, String address, String city, String state, String zip,String phoneNo, String email) {
         super();
