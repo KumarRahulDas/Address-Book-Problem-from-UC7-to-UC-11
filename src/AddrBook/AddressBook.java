@@ -3,6 +3,7 @@ package AddrBook;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -13,10 +14,6 @@ public class AddressBook {
     HashMap<String, List<Contact>> addressBookMap = new HashMap<String, List<Contact>>();
 
 
-    /**
-     * Map to store multiple address books to satisfy condition of unique name
-     * @param contactObj
-     */
     public void addContact(Contact contactObj) {
         Contact contact;
         boolean isPresent = addressList.stream().anyMatch(obj -> obj.equals(contactObj));
@@ -26,13 +23,7 @@ public class AddressBook {
             System.out.println("Contact already present. Duplication not allowed");
     }
 
-    /**
-     * Edit Contact Details
-     * Enter First Name and LastName of person to Edit Details
-     * @param firstName
-     * @param lastName
-     * @return
-     */
+
     public boolean editDetails(String firstName, String lastName) {
         Contact editObj;
         boolean contactFound = false;
@@ -57,13 +48,6 @@ public class AddressBook {
         }
         return contactFound;
     }
-    /**
-     * Remove Contact from given Address Book
-     * Enter FirstName and LastName of person to delete data
-     * @param firstName
-     * @param lastName
-     * @return
-     */
 
     public boolean removeDetails(String firstName, String lastName) {
         Contact removeObj;
@@ -79,10 +63,6 @@ public class AddressBook {
         return contactFound;
     }
 
-    /**
-     * Add an AddressBook to map
-     * @param listName
-     */
     public void addAddressList(String listName) {
         List<Contact> newAddressList = new LinkedList<Contact>();
         addressBookMap.put(listName, newAddressList);
@@ -90,15 +70,23 @@ public class AddressBook {
     }
 
 
+    private void searchPersonAcrossCityState(String searchPerson,int searchChoice, String cityOrState) {
+        for (Map.Entry<String, List<Contact>> entry : addressBookMap.entrySet()) {
+            List<Contact> list = entry.getValue();
+            if (searchChoice == 1)
+                list.stream().filter(obj -> ((obj.getCity().equals(cityOrState))&&(obj.getFirstName().equals(searchPerson)))).forEach(System.out::println);
+            else if(searchChoice == 2)
+                list.stream().filter(obj -> ((obj.getState().equals(cityOrState))&&(obj.getFirstName().equals(searchPerson)))).forEach(System.out::println);
+        }
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         AddressBook addressObj = new AddressBook();
         int choice = 0;
-        /**
-         * If no address book is present, it asks to add at least one address book
-         * Then Enter the Name of Address Book to add
-         */
-        while (choice != 6) {
+       
+        while (choice != 7) {
             if (addressObj.addressBookMap.isEmpty()) {
                 System.out.println("Please add an address book :");
                 System.out.println("Enter the name of address book  to add:");
@@ -178,6 +166,15 @@ public class AddressBook {
                     break;
                 }
                 case 6: {
+                    System.out.println("Enter first name of person to search");
+                    String searchPerson = sc.nextLine();
+                    System.out.println("Enter the name of city or state");
+                    String cityOrState = sc.nextLine();
+                    System.out.println("Enter 1 if you entered name of a city \nEnter 2 if you entered name of a state");
+                    int searchChoice = Integer.parseInt(sc.nextLine());
+                    addressObj.searchPersonAcrossCityState(searchPerson,searchChoice, cityOrState);
+                }
+                case 7: {
                     System.out.println("Thank you for using the application");
                 }
             }
